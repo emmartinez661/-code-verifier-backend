@@ -8,11 +8,7 @@ dotenv.config()
 const app: Express = express();
 const port: String | number = process.env.PORT || 8000
 
-//  definimos la ruta de la app
-app.get('/', (req: Request, res: Response) => {
-//  send hola mundo
-  res.send('Welcome to my API Restful: Express + nodemon + jest + TS + Swagger + Mongoose ')
-})
+
 
 app.get('/hello', (req: Request, res: Response) => {
 //  send hola mundo
@@ -30,7 +26,7 @@ app.get('/ejercicio1', (req: Request, res:Response) => {
 
 //  EXTRA leer parametros de consulta por la URL
 app.get('/ejercicio1/:name', (req: Request, res: Response) => {
-  res.send({
+  return res.send({
     data: {
       message: `hola ${req.params.name}!`
     }
