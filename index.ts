@@ -1,38 +1,15 @@
-import express, { Express, Request, Response } from 'express'
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import server from './src/server'
+import { LogError, LogSuccess } from './src/utils/logger';
 
-//  Configuracion del .env
-dotenv.config()
+const port = process.env.PORT || 8000;
 
-//  Creamos el Express APP
-const app: Express = express();
-const port: String | number = process.env.PORT || 8000
+// * Execute server 
+server.listen(port, () =>{
+  LogSuccess(`[SERVER ON]: Running in http:localhost:${port}/api`);
+});
 
-
-
-app.get('/hello', (req: Request, res: Response) => {
-//  send hola mundo
-  res.send('Page Hello')
-})
-//   Ruta tipo GET que devuelve una response 200 con un json
-app.get('/ejercicio1', (req: Request, res:Response) => {
-  res.send({
-    data: {
-      message: 'Goodbye,world'
-    }
-  }
-  )
-})
-
-//  EXTRA leer parametros de consulta por la URL
-app.get('/ejercicio1/:name', (req: Request, res: Response) => {
-  return res.send({
-    data: {
-      message: `hola ${req.params.name}!`
-    }
-  })
-})
-
-app.listen(port, () => {
-  console.log(`Express Server: Running en http://localhost:${port}`)
-})
+//Control SERVER ERROR
+server.on('error', (error) => {
+  LogError(`[SERVER ERROR]: ${error}`);
+});
