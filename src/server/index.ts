@@ -25,6 +25,10 @@ server.use(
     '/api', 
     rootRouter)
 
+//static server 
+server.use(express.static("public"));
+
+
 // TODO mongoose conection
 
 // Security Connection
