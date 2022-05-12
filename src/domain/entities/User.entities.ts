@@ -9,6 +9,6 @@ export const userEntity = () =>{
         }
     )
 
-    return mongoose.model('Users',userSchema);
+    return mongoose.models.Users || mongoose.model('Users',userSchema);
     
 }
