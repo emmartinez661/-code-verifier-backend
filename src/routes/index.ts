@@ -8,6 +8,7 @@ import helloRouter from './HelloRouter';
 import goodbyeRouter from './GoodByeRouter';
 import { LogInfo } from '../utils/logger';
 import usersRouter from './UserRouter';
+import katasRouter from './KatasRouter'
 
 // Server Instance
 let server = express();
@@ -24,11 +25,16 @@ rootRouter.get('/', (req: Request, res:Response) =>{
         res.send('Welcome to my API restfull')
 });
 
+
+
 //redirection to routers and controllers
 server.use('/', rootRouter);//http:localhost:8000/api/
 server.use('/hello', helloRouter); //http:localhost:8000/api/hello/
 server.use('/goodbye', goodbyeRouter);
 server.use('/users',usersRouter)//http:localhost:8000/api/users/ -->User Router
+server.use('/katas',katasRouter)//http:localhost:8000/api/katas/ -->Katas Router
+
 //Add more Routes to the app
+
 
 export default server;

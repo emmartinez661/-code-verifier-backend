@@ -10,8 +10,6 @@ import { BasicResponse } from "./types";
 @Tags("UserController")
 export class UserController implements IUserController{
     
-  
-
     /**
      * 
      * @param {string} id Id of user to retrieve (optional)

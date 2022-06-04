@@ -18,3 +18,25 @@ export interface IUserController{
     //Update User
     updateUSer(id:string, user:any):Promise<any>
 }
+
+export interface IKatasController{
+    //Read all katas from database || get katas By ID || get Katas by level
+    getKatas(id?:string): Promise<any>
+    //Delete kata By ID
+    deleteKata(id:string): Promise<any>
+    //Create New kata
+    createKata(katas: any):Promise<any>
+    //Update Kata
+    updateKata(id: string, katas:any): Promise<any>
+    // Read Katas by Dificult Level
+    filterKatasByLevel(level:Number): Promise<any>
+    //Read Katas most recently
+    getKatasRecently():Promise<any>
+    //List Katas by valorations 
+    getKatasValorated(): Promise<any>
+    //Update Valorations of kata 
+    updateKatasValoration(id: string, vote: any, userID: any): Promise<any>
+    //get katas by tries
+    getKatasTried(): Promise <any>
+
+}

@@ -40,18 +40,18 @@ usersRouter.route('/')
   //POST
   .post(async(req:Request, res: Response) =>{
     
-      let name: any = req?.query?.name;
-      let email: any = req?.query?.email;    
-      let age: any = req?.query?.age;  
+      let name:   any = req?.query?.name;
+      let email:  any = req?.query?.email;    
+      let age:    any = req?.query?.age;  
 
      //  Controller instance to execute method
      const controller: UserController = new UserController();
 
      //datos de prueba
      let user ={
-       name: name || 'default',
-       email: email || 'default email',
-       age: age || 18
+       name:    name  || 'default',
+       email:   email || 'default email',
+       age:     age   || 18
      }
 
      //  obtain response
@@ -62,10 +62,10 @@ usersRouter.route('/')
 
   .put(async(req:Request, res: Response) => {
       //   Obtain Query Params (ID)
-      let id: any = req?.query?.id; 
-      let name: any = req?.query?.name;
-      let email: any = req?.query?.email;    
-      let age: any = req?.query?.age;  
+      let id:     any = req?.query?.id; 
+      let name:   any = req?.query?.name;
+      let email:  any = req?.query?.email;    
+      let age:    any = req?.query?.age;  
         //  dara un mensaje por la consola: se ha solicitado una peticion a esta ruta con este valor
     LogInfo(`Query Param: ${id}, ${name}, ${age}, ${email}`); 
 
@@ -74,9 +74,9 @@ usersRouter.route('/')
 
      //datos de prueba
      let user ={
-      name: name ,
-      email: email ,
-      age: age 
+      name:   name ,
+      email:  email ,
+      age:    age 
     }
 
       //  obtain response
