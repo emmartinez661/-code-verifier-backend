@@ -1,4 +1,4 @@
-import { katasEntity } from "../entities/Katas.entities";
+import { katasEntity } from "../entities/Katas.entity";
 import { LogSuccess, LogError } from "../../utils/logger";
 import { response } from "express";
 
@@ -13,7 +13,7 @@ export const getAllKatas= async (): Promise<any[] | undefined> => {
         // search all Katas
         return await katasModel.find({isDelete: false})
     } catch (error){
-        LogError ('[ORM ERROR]: Getting all Katas: ${error}');
+        LogError (`[ORM ERROR]: Getting all Katas: ${error}`);
     }
 }
 
@@ -26,7 +26,7 @@ export const getKatasByID = async ( id : string): Promise<any | undefined > => {
         //Search Katas By ID
         return await katasModel.findById(id)
     }catch(error){
-        LogError ('[ORM ERROR]: Getting katas By ID: ${error}');
+        LogError ( `[ORM ERROR]: Getting katas By ID: ${error}`);
     }
 }
 
@@ -38,7 +38,7 @@ export const deleteKataByID = async (id:string ): Promise<any | undefined> =>{
         //delete kata By ID
         return await katasModel.deleteOne({_id:id})
     } catch (error) {
-        LogError('[ORM ERROR]: Deleting Kata By ID: ${error}');
+        LogError(`[ORM ERROR]: Deleting Kata By ID: ${error}`);
     }    
 }
 
@@ -50,7 +50,7 @@ export const createKata = async(katas: any): Promise <any | undefined> =>{
         //Create / insert new Kata
         return await katasModel.create(katas);
     } catch (error) {
-        LogError('[ORM ERROR]: Creating kata: ${error}');
+        LogError(`[ORM ERROR]: Creating kata: ${error}`);
     }
 }
 
@@ -63,7 +63,7 @@ export const updateKataByID = async(id:string, katas: any): Promise <any | undef
         //update kata 
         return await katasModel.findByIdAndUpdate(id, katas)
     } catch (error) {
-        LogError('[ORM ERROR]: Updating Kata: $[error]');
+        LogError(`[ORM ERROR]: Updating Kata: $[error]`);
     }
 }
 
@@ -75,7 +75,7 @@ export const getKatasByLevel = async (level: Number): Promise<any | undefined> =
         //Search katas by difficult level
         return await katasModel.find({level:level})
     } catch (error) {
-        LogError('[ORM ERROR]: Getting Katas By difficult Level: ${error}' )
+        LogError(`[ORM ERROR]: Getting Katas By difficult Level: ${error}` )
     }
 
 }
@@ -90,7 +90,7 @@ export const getKatasMostRecently = async (): Promise<any[] | undefined> =>
         //get 5 katas most Recently
         return await katasModel.find({}).sort({"date" : -1}).limit(5)
     }catch (error){
-        LogError('[ORM ERROR]: Getting 5 katas most recently: ${error}')
+        LogError(`[ORM ERROR]: Getting 5 katas most recently: ${error}`)
     }
     
 }
@@ -104,7 +104,7 @@ export const getKatasByValoration = async (): Promise<any[] | undefined> =>
         //get katas best to less valorated
         return await katasModel.find({}).sort({"valoration" : -1})
     }catch(error){
-        LogError('[ORM ERROR]: Getting katas sort by valorations: ${error}')
+        LogError(`[ORM ERROR]: Getting katas sort by valorations: ${error}`)
     }
 }
 
@@ -149,7 +149,7 @@ export const getKatasByTries = async (): Promise<any[] | undefined> =>
         //get katas best to less valorated
         return await katasModel.find({}).sort({"chances" : -1})
     }catch(error){
-        LogError('[ORM ERROR]: Getting katas sort by tries: ${error}')
+        LogError(`[ORM ERROR]: Getting katas sort by tries: ${error}`)
     }
 }
 

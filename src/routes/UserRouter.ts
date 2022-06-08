@@ -2,6 +2,9 @@ import express, {Request, Response} from 'express';
 import { UserController,  } from '../controller/UsersController';
 import { LogInfo } from '../utils/logger';
 
+
+
+
 // Router from express
 let usersRouter = express.Router();
 
@@ -21,7 +24,7 @@ usersRouter.route('/')
     //  obtain response
     const response: any = await controller.getUsers(id);
     //  send to the client the response
-    return res.send(response);
+    return res.status(200).send(response);
   })
 
   .delete(async(req:Request, res: Response) =>{
@@ -34,7 +37,7 @@ usersRouter.route('/')
     //  obtain response
     const response: any = await controller.deleteUser(id);
     //  send to the client the response
-    return res.send(response);
+    return res.status(200).send(response);
   })
 
   //POST
@@ -49,15 +52,15 @@ usersRouter.route('/')
 
      //datos de prueba
      let user ={
-       name:    name  || 'default',
-       email:   email || 'default email',
-       age:     age   || 18
+       name:    name,
+       email:   email,
+       age:     age
      }
 
      //  obtain response
      const response: any = await controller.createUser(user);
      //  send to the client the response
-     return res.send(response);
+     return res.status(201).send(response);
   })
 
   .put(async(req:Request, res: Response) => {
@@ -78,12 +81,13 @@ usersRouter.route('/')
       email:  email ,
       age:    age 
     }
-
       //  obtain response
       const response: any = await controller.updateUSer(id, user);
       //  send to the client the response
-     return res.send(response);
+     return res.status(200).send(response);
   })
 
+  
 // Export Hello Router
 export default usersRouter;
+
