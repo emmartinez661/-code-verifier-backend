@@ -23,11 +23,15 @@ export class UserController implements IUserController{
         if(id){ //si recibe el query param por ID muestralo
             LogSuccess(`[/api/users] Get User By ID: ${id}`)
             response = await getUserByID(id);
+              //Remove the password 
+            response.password='';
         }else { //de lo contrario sino viene con id muestralos todos 
             LogSuccess(`[/api/users] Get All User Request`)
             response= await getAllUsers();
+              //TODO remove password from response
                }
         return response;
+       
     }
     
     /**
@@ -56,20 +60,7 @@ export class UserController implements IUserController{
         return response;
     }
 
-    @Post("/")
-    public async createUser(user: any): Promise<any> {
-        
-        let response: any = '';
 
-        await createUser(user).then((r) =>{
-            LogSuccess(`[/api/users] Create User: ${user}`)
-            response = {
-                message: `User created succesfully ${user.name}`
-            }
-        })
-
-        return response;
-    }
 
     @Put("/")
     public async updateUSer(@Query()id: string, user: any): Promise<any> {

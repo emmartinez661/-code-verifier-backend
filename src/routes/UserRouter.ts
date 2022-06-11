@@ -40,28 +40,7 @@ usersRouter.route('/')
     return res.status(200).send(response);
   })
 
-  //POST
-  .post(async(req:Request, res: Response) =>{
-    
-      let name:   any = req?.query?.name;
-      let email:  any = req?.query?.email;    
-      let age:    any = req?.query?.age;  
 
-     //  Controller instance to execute method
-     const controller: UserController = new UserController();
-
-     //datos de prueba
-     let user ={
-       name:    name,
-       email:   email,
-       age:     age
-     }
-
-     //  obtain response
-     const response: any = await controller.createUser(user);
-     //  send to the client the response
-     return res.status(201).send(response);
-  })
 
   .put(async(req:Request, res: Response) => {
       //   Obtain Query Params (ID)
