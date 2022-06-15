@@ -2,7 +2,7 @@ import { Delete, Get, Post, Put, Query, Route, Tags } from "tsoa";
 import { IAuthController } from "./interfaces";
 import { LogSuccess, LogError, LogWarning } from "../utils/logger";
 import { IUser } from "../domain/interfaces/IUser.interface";
-import { IAuth } from "../domain/interfaces/IAuth.interfaces";
+import { IAuth } from "../domain/interfaces/IAuth.interface";
 
 //orm imports 
 import { registerUser, loginUser, logoutUser, getUserByID } from "../domain/orm/User.orm";
@@ -13,6 +13,12 @@ import { tokenToString } from "typescript";
 @Tags("AuthController")
 export class AuthController implements IAuthController {
 
+     /**
+     * 
+     * create new user 
+     * @param User  to retrieve (optional)
+     * 
+     */
     @Post("/register")
     public async registerUser(user: IUser): Promise<any> {
         
@@ -27,7 +33,7 @@ export class AuthController implements IAuthController {
                 }
             })
         }else { //de lo contrario sino viene con id muestralos todos 
-            LogSuccess(`[/api/auth/register] Register needs User Entity`)
+            LogWarning(`[/api/auth/register] Register needs User Entity`)
             response = {
                 message: 'Pleaase, provide a User Entity to create one'
             }
@@ -37,7 +43,13 @@ export class AuthController implements IAuthController {
     }
 
     
-
+     /**
+     * Endpoint to Authenticate User 
+     * Middleware: Validate JWT
+     * give token validate
+     * @param {auth}  IAuth of user to retrieve (optional)
+     * @returns data token
+     */
     @Post("/login")
     public async loginUser(auth: IAuth): Promise<any> {
         //todo implement login user 
@@ -86,7 +98,10 @@ export class AuthController implements IAuthController {
            return response;
        }
 
-
+    /**
+     *      
+     * Just logout USer
+     */
     @Post("logout")
     public async logoutUser(): Promise <any>{
         let response : any ='';

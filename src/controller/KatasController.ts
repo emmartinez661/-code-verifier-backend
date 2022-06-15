@@ -4,6 +4,7 @@ import { LogSuccess, LogError, LogWarning } from "../utils/logger";
 
 // ORM - Katas Collection
 import { getAllKatas, getKatasByID, deleteKataByID, createKata, updateKataByID, getKatasByLevel, getKatasMostRecently, getKatasByValoration, updateKatasByValoration, getKatasByTries} from "../domain/orm/Katas.orm";
+import { IKatas } from "../domain/interfaces/IKatas.interface";
 
 @Route("/api/katas")
 @Tags("KatasController")
@@ -24,19 +25,25 @@ export class KatasController implements IKatasController{
         let response: any = '';
 
         if (id) {// si recibe el query param por iD muestralo
-            LogSuccess(`[/api/katas] Get Katas By ID: ${id}`)
+            //LogSuccess(`[/api/katas] Get Katas By ID: ${id}`)
+            
             response = await getKatasByID(id);
 
         
             
         }else{ // de lo contrario sino viene con id muestra todas las katas
             LogSuccess(`[/api/katas] Get all Katas Request`)
-            response = await getAllKatas()    
+            response = await getAllKatas();
         }        
         return response;
 
     }
 
+    /**
+     * Method to filter katas by level
+     * @param level 
+     * @returns 
+     */
     @Get("/level")
     public async filterKatasByLevel(@Query()level: Number): Promise<any> {
         let response: any = '';
@@ -46,7 +53,7 @@ export class KatasController implements IKatasController{
             LogSuccess(`[/api/katas/level] Get Katas Filter By Level: ${level}`)
             response = await getKatasByLevel(level)
             console.log(response)
-        } if(response.length === 0){ // de lo contrario sino viene con level muestra el mensaje
+        } if(!level){ // de lo contrario sino viene con level muestra el mensaje
             LogSuccess(`[/api/katas/level] Get Katas Filter Request`)
             return{
                 message: 'Please provide an level that exist on DB'
@@ -55,6 +62,10 @@ export class KatasController implements IKatasController{
         return response;
     }
 
+    /**
+     * Method to filter katas by most recently created 
+     * @returns 
+     */
     @Get('/r')
     public async getKatasRecently(): Promise<any> {
         let response: any = '';
@@ -63,6 +74,10 @@ export class KatasController implements IKatasController{
      return response ;
     }
 
+    /**
+     * Method to obtain katas by valorations
+     * @returns 
+     */
     @Get('valorations')
     public async getKatasValorated(): Promise<any> {
         let response: any = '';
@@ -73,6 +88,11 @@ export class KatasController implements IKatasController{
 
    
 
+    /**
+     * Method to delete kata by id
+     * @param id 
+     * @returns 
+     */
     @Delete("/")
     public async deleteKata(@Query()id?: string): Promise<any>{
 
@@ -94,20 +114,39 @@ export class KatasController implements IKatasController{
         return response;
     }
 
+    /**
+     * Method to create new kata
+     * @param katas 
+     * @returns 
+     */
     @Post("/")
     public async createKata(katas: any): Promise<any> {
         
         let response: any = '';
 
-        await createKata(katas).then((r) =>{
-            LogSuccess(`[/api/katas] Create Kata: ${katas}`);
+        if(katas){
+            await createKata(katas).then((r) =>{
+                LogSuccess(`[/api/katas] Create Kata: ${katas}`);
+                response = {
+                    message: `Kata create successfully ${katas.kataname}` 
+                }
+            })
+        } else {
+            LogWarning(`[/api/katas] Create needs katas Entity`)
             response = {
-                message: `Kata create successfully ${katas.name}` 
+                message: 'Please provide a Kata Entity to create one'
             }
-        })
+        }
+       
         return response;
     }
 
+    /**
+     * Method to update kata by id
+     * @param id 
+     * @param katas 
+     * @returns 
+     */
     @Put("/")
     public async updateKata(@Query()id: string, katas: any): Promise<any> {
         
@@ -130,6 +169,13 @@ export class KatasController implements IKatasController{
         return response;
     }
 
+    /**
+     * Method to update kata valoration and obtain media of many valorations 
+     * @param name 
+     * @param vote 
+     * @param userID 
+     * @returns 
+     */
     @Put("/valorations")
     public async updateKatasValoration(@Query()name: string , @Query()vote: any, @Query()userID: any): Promise<any> {
         let response : any = '';
@@ -150,6 +196,10 @@ export class KatasController implements IKatasController{
         return response;
     }
 
+    /**
+     * Method to obtain katas sorted by chances o tries 
+     * @returns 
+     */
     @Get('/chances')
     public async getKatasTried(): Promise<any> {
         let response: any = '';

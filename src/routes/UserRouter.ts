@@ -3,7 +3,8 @@ import { UserController,  } from '../controller/UsersController';
 import { LogInfo } from '../utils/logger';
 
 
-
+//middleware 
+import { verifyToken } from '../middlewares/verityToken.middlewares';
 
 // Router from express
 let usersRouter = express.Router();
@@ -14,7 +15,7 @@ let usersRouter = express.Router();
 
 usersRouter.route('/')
   // GET
-  .get(async (req: Request, res: Response) => {
+  .get(verifyToken,async (req: Request, res: Response) => {
     //   Obtain Query Params (ID)
     let id: any = req?.query?.id;  
      //  dara un mensaje por la consola: se ha solicitado una peticion a esta ruta con este valor
@@ -27,7 +28,7 @@ usersRouter.route('/')
     return res.status(200).send(response);
   })
 
-  .delete(async(req:Request, res: Response) =>{
+  .delete(verifyToken, async(req:Request, res: Response) =>{
     //   Obtain Query Params (ID)
     let id: any = req?.query?.id;  
      //  dara un mensaje por la consola: se ha solicitado una peticion a esta ruta con este valor
@@ -42,7 +43,7 @@ usersRouter.route('/')
 
 
 
-  .put(async(req:Request, res: Response) => {
+  .put(verifyToken,async(req:Request, res: Response) => {
       //   Obtain Query Params (ID)
       let id:     any = req?.query?.id; 
       let name:   any = req?.query?.name;

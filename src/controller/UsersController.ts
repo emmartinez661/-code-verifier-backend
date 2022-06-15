@@ -62,6 +62,12 @@ export class UserController implements IUserController{
 
 
 
+    /**
+     * Endpoint to update users by ID
+     * @param id 
+     * @param user 
+     * @returns 
+     */
     @Put("/")
     public async updateUSer(@Query()id: string, user: any): Promise<any> {
         let response: any = '';

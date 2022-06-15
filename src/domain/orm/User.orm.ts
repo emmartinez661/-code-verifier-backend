@@ -1,7 +1,7 @@
 import { userEntity } from "../entities/User.entity";
 import { LogError, LogSuccess } from "../../utils/logger";
 import { IUser } from "../interfaces/IUser.interface";
-import { IAuth } from "../interfaces/IAuth.interfaces";
+import { IAuth } from "../interfaces/IAuth.interface";
 
 //Enviroment variables
 import dotenv from 'dotenv'
@@ -37,7 +37,11 @@ export const getAllUsers = async (): Promise<any[] | undefined> => {
 
 
 }
-
+/**
+ * Method to get users by ID
+ * @param id 
+ * @returns user especific by id
+ */
     // - GET User By ID
 export const getUserByID = async (id: string): Promise<any | undefined> => {
         try {
@@ -49,7 +53,11 @@ export const getUserByID = async (id: string): Promise<any | undefined> => {
             LogError (`[ORM ERROR]: Getting User By ID: ${error}`);
         }
 }
-
+/**
+ * Method to delete user by ID
+ * @param id 
+ * @returns 
+ */
 // - Delete User By ID 
 export const deleteUserByID = async (id: string): Promise<any | undefined> =>{
    
@@ -64,7 +72,11 @@ export const deleteUserByID = async (id: string): Promise<any | undefined> =>{
     }
 }
 
-
+/**
+ * Method to create new user
+ * @param user 
+ * @returns 
+ */
 // - Create New User 
 export const createUser = async(user: any): Promise<any | undefined> =>{
     try {
@@ -78,6 +90,13 @@ export const createUser = async(user: any): Promise<any | undefined> =>{
     }
 }
 
+/**
+ * 
+ * id Method to update user by ID
+ * @param id
+ * @param user 
+ * @returns 
+ */
 // - Update User By ID 
 export const updateUserByID= async (id:string, user:any ):Promise<any | undefined> =>{
     try {
@@ -90,6 +109,11 @@ export const updateUserByID= async (id:string, user:any ):Promise<any | undefine
     }
 }
 
+/**
+ * Method to register or create new user
+ * @param user 
+ * @returns 
+ */
 //Register User 
 export const registerUser = async (user: IUser): Promise <any | undefined> =>{
 
@@ -105,6 +129,11 @@ try {
     
 }
 
+/**
+ * Method to validate token and validate user to login
+ * @param auth 
+ * @returns 
+ */
 //Login User 
 export const loginUser = async (auth: IAuth): Promise <any | undefined> =>{
 //TODO NOT IMPLEMENTED 
@@ -145,6 +174,9 @@ try {
     
 }
 
+/**
+ * Method to logout user
+ */
 export const logoutUser = async ():Promise <any | undefined> =>{
     //TODO NOT IMPLEMENTED 
         

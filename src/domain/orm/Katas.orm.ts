@@ -1,6 +1,7 @@
 import { katasEntity } from "../entities/Katas.entity";
 import { LogSuccess, LogError } from "../../utils/logger";
 import { response } from "express";
+import { IKatas } from "../interfaces/IKatas.interface";
 
 // CRUD
 /**
@@ -63,7 +64,7 @@ export const updateKataByID = async(id:string, katas: any): Promise <any | undef
         //update kata 
         return await katasModel.findByIdAndUpdate(id, katas)
     } catch (error) {
-        LogError(`[ORM ERROR]: Updating Kata: $[error]`);
+        LogError(`[ORM ERROR]: Updating Kata: ${error}`);
     }
 }
 
@@ -95,6 +96,7 @@ export const getKatasMostRecently = async (): Promise<any[] | undefined> =>
     
 }
 
+// - Get kata by Valoration
 export const getKatasByValoration = async (): Promise<any[] | undefined> =>
 {
     try 
@@ -108,6 +110,7 @@ export const getKatasByValoration = async (): Promise<any[] | undefined> =>
     }
 }
 
+// - update kata by valoration and get media of many valorations
 export const updateKatasByValoration = async (name: string ,vote: any, userID: any):Promise<any | undefined> => 
 {
     try 
@@ -140,6 +143,7 @@ export const updateKatasByValoration = async (name: string ,vote: any, userID: a
     }
 }
 
+// - Get katas by tries o chances maked 
 export const getKatasByTries = async (): Promise<any[] | undefined> =>
 {
     try 

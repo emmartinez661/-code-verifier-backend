@@ -14,7 +14,7 @@ let jsonParser = bodyParser.json();
 
 //BCRYPT for password
 import bcrypt from 'bcrypt' //cifrar y descifrar contraseñas 
-import { IAuth } from '../domain/interfaces/IAuth.interfaces';
+import { IAuth } from '../domain/interfaces/IAuth.interface';
 
 //Router from express
 let authRouter = express.Router();
