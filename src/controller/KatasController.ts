@@ -20,7 +20,7 @@ export class KatasController implements IKatasController{
      * @returns All Katas or Katas found by ID or katas by dificult level
      */
     @Get("/")
-    public async getKatas(@Query()id?:string): Promise<any> {
+    public async getKatas(@Query()page:number, @Query()limit:number,@Query()id?:string): Promise<any> {
 
         let response: any = '';
 
@@ -33,7 +33,7 @@ export class KatasController implements IKatasController{
             
         }else{ // de lo contrario sino viene con id muestra todas las katas
             LogSuccess(`[/api/katas] Get all Katas Request`)
-            response = await getAllKatas();
+            response = await getAllKatas(page, limit);
         }        
         return response;
 

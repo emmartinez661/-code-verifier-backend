@@ -12,6 +12,7 @@ import bcrypt from 'bcrypt'
 //JWT 
 import jwt from 'jsonwebtoken'
 import { tokenToString } from "typescript";
+import { UserResponse } from "../types/UsersResponse.type";
 
 //Configuration of environment variables
 dotenv. config();
@@ -24,19 +25,45 @@ const secret = process.env.SECRETKEY || 'MYSECRETKEY';
 /**
  * Method to obtain all Users from Collection "Users" in Mongo Server 
  */
-export const getAllUsers = async (): Promise<any[] | undefined> => {
+export const getAllUsers = async (page: number, limit:number): Promise<any[] | undefined> => {
     try {
         let userModel = userEntity();
 
-        // search all users
-        return await userModel.find({isDelete: false})
+        let response:any = {};
+
+        // search all users (using pagination)
+        await userModel.find({isDelete: false})
+        .select('name email age')
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .exec().then((users: IUser[]) =>{
+
+           /*  users.forEach((user: IUser) =>{
+                //Clean Passwords from result
+               user.password = ''; 
+            }) */
+
+            response.users= users
+        })
+
+
+
+        //Count total documents in Collection "Users"
+        await userModel.countDocuments().then((total: number) => {
+            response.totalPages = Math.ceil(total / limit);
+            response.currentPage = page;
+        });
+
+        return response; 
+
+        //return await userModel.find({isDelete: false})
 
     } catch (error) {
         LogError (`[ORM ERROR]: Getting all Users: ${error}`);
     }
-
-
 }
+
+
 /**
  * Method to get users by ID
  * @param id 
@@ -49,6 +76,7 @@ export const getUserByID = async (id: string): Promise<any | undefined> => {
     
             // Search User By ID
             return await userModel.findById(id)
+            .select('name email age')
         } catch (error) {
             LogError (`[ORM ERROR]: Getting User By ID: ${error}`);
         }

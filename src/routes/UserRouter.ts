@@ -18,12 +18,17 @@ usersRouter.route('/')
   .get(verifyToken,async (req: Request, res: Response) => {
     //   Obtain Query Params (ID)
     let id: any = req?.query?.id;  
+
+    //Pagination
+    let page: any = req?.query?.page || 1;
+    let limit: any = req?.query?.limit || 10;
+
      //  dara un mensaje por la consola: se ha solicitado una peticion a esta ruta con este valor
      LogInfo(`Query Param: ${id}`);
     //  Controller instance to execute method
     const controller: UserController = new UserController();
     //  obtain response
-    const response: any = await controller.getUsers(id);
+    const response: any = await controller.getUsers(page, limit, id);
     //  send to the client the response
     return res.status(200).send(response);
   })

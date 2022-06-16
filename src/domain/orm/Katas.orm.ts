@@ -7,12 +7,33 @@ import { IKatas } from "../interfaces/IKatas.interface";
 /**
  * Method to obtain al katas from Collection "Katas" in Mongo server
  */
-export const getAllKatas= async (): Promise<any[] | undefined> => {
+export const getAllKatas= async (page: number, limit:number): Promise<any[] | undefined> => {
     try {
         let katasModel = katasEntity();
 
+        let response: any = {};
+
+        //search all katas using(pagination)
+        await katasModel.find({isDelete: false})
+        .limit(limit)
+        .skip((page -1) *limit)
+        .exec().then((katas: IKatas[] )=>{
+            response.katas= katas
+        })
+
+        //Count total documents in collection Katas
+        await katasModel.countDocuments().then((total: number) =>{
+            response.totalPages = Math.ceil(total / limit);
+            response.currentPage = page;
+
+
+         
+        })
+
+        return response
+
         // search all Katas
-        return await katasModel.find({isDelete: false})
+        //return await katasModel.find({isDelete: false})
     } catch (error){
         LogError (`[ORM ERROR]: Getting all Katas: ${error}`);
     }

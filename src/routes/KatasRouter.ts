@@ -22,14 +22,20 @@ katasRouter.route('/')
 .get(jsonParser,verifyToken, async (req: Request, res: Response) => {
 
     // Obtain query params (id)
-    let id:any = req?.body;
+    let id:any = req?.query?.id;
+
+    
+
+    //pagination
+    let page: any = req?.query?.page|| 1;
+    let limit: any = req?.query?.limit || 10;
     //dara un mensaje por consola
     LogInfo(`Query param ${id}`);
 
     //Controller instance to execute method
     const controller: KatasController = new KatasController();
     //obtain response ID
-    const response: any = await controller.getKatas(id);
+    const response: any = await controller.getKatas(page, limit,id);
     // send to the client the response
     return res.status(200).send(response);
 })

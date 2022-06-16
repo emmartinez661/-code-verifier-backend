@@ -16,7 +16,7 @@ export class UserController implements IUserController{
      * @returns All user o user found by ID
      */
     @Get("/")
-    public async getUsers(@Query()id?: string): Promise<any> {
+    public async getUsers(@Query() page: number, @Query()limit: number ,@Query()id?: string): Promise<any> {
         
         let response: any = '';
 
@@ -24,10 +24,11 @@ export class UserController implements IUserController{
             LogSuccess(`[/api/users] Get User By ID: ${id}`)
             response = await getUserByID(id);
               //Remove the password 
-            response.password='';
+           // response.password='';
+           //con el select en la funcion user orm estamos filtrando los datos que necesitamos sin necesidad de limpiar la passowrd 
         }else { //de lo contrario sino viene con id muestralos todos 
             LogSuccess(`[/api/users] Get All User Request`)
-            response= await getAllUsers();
+            response= await getAllUsers(page, limit);
               //TODO remove password from response
                }
         return response;
