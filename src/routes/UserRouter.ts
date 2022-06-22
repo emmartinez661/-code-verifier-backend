@@ -72,6 +72,23 @@ usersRouter.route('/')
      return res.status(200).send(response);
   })
 
+
+  usersRouter.route('/katas')
+  .get(verifyToken,async (req: Request, res: Response) =>{
+    //obtain a query param ID
+    let id: any = req?.query?.id;
+
+    //Pagination
+    let page: any = req?.query?.page || 1;
+    let limit: any = req?.query?.limit || 10;
+
+    //  Controller instance to execute method
+    const controller: UserController = new UserController();
+    //  obtain response
+    const response: any = await controller.getKatas(page, limit, id);
+    //  send to the client the response
+    return res.status(200).send(response);
+  })
   
 // Export Hello Router
 export default usersRouter;

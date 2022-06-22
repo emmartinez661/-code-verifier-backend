@@ -3,12 +3,14 @@ import { IUserController } from "./interfaces";
 import { LogSuccess, LogError, LogWarning } from "../utils/logger";
 
 // ORM - Users Collection
-import { deleteUserByID, getAllUsers , getUserByID, createUser, updateUserByID} from "../domain/orm/User.orm";
+import { deleteUserByID, getAllUsers , getUserByID, createUser, updateUserByID, getKatasFromUser} from "../domain/orm/User.orm";
 import { BasicResponse } from "./types";
 
 @Route("/api/users")
 @Tags("UserController")
 export class UserController implements IUserController{
+
+   
     
     /**
      * 
@@ -87,6 +89,28 @@ export class UserController implements IUserController{
             }
                }
         return response;
+    }
+
+    @Get('/katas') //users/katas
+    public async getKatas(@Query() page: number, @Query()limit: number ,@Query()id: string): Promise<any> {
+        let response: any = '';
+
+        if(id){ //si recibe el query param por ID muestralo
+            LogSuccess(`[/api/users/katas] Get Katas from user by ID: ${id}`)
+            response = await getKatasFromUser(page,limit,id);
+             
+        }else { //de lo contrario sino viene con id muestralos todos 
+            LogSuccess(`[/api/users/katas] Get All Katas without id`)
+            response= {
+                message: 'ID from user is needed'
+            }
+              //TODO remove password from response
+               }
+        return response;
+     
+            
+        
+        
     }
 
     

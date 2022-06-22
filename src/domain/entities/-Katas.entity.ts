@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+/* import mongoose from "mongoose";
 import { IKatas } from "../interfaces/IKatas.interface";
 
 export const katasEntity = () =>{
@@ -22,4 +22,4 @@ export const katasEntity = () =>{
     )
 
     return mongoose.models.Katas || mongoose.model<IKatas>('Katas',katasSchema)
-}
+} */

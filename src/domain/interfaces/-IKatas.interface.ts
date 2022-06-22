@@ -1,4 +1,4 @@
-export interface IKatas {
+/* export interface IKatas {
     
         name:               string,
         description:        string,
@@ -12,4 +12,4 @@ export interface IKatas {
             valoration_item:number
          } ]
      
-}
+} */

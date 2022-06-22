@@ -1,25 +1,25 @@
 //import { updateKatasByValoration } from '@/domain/orm/Katas.orm';
-import express, { Request, Response} from 'express';
+/* import express, { Request, Response} from 'express';
 import { KatasController } from '../controller/KatasController';
-import { LogInfo } from '../utils/logger';
+import { LogInfo } from '../utils/logger'; */
 
 //Router from express
-let katasRouter = express.Router();
+/* let katasRouter = express.Router(); */
 
 //body parser (read JSON from body in Requests)
-import bodyParser, { json } from 'body-parser';
-
+/* import bodyParser, { json } from 'body-parser';
+ */
 //middleware to read JSON in body
-let jsonParser = bodyParser.json();
+/* let jsonParser = bodyParser.json();
 
 import {verifyToken} from '../middlewares/verityToken.middlewares'
-import { IKatas } from '../domain/interfaces/IKatas.interface';
+import { IKatas } from '../domain/interfaces/IKatas.interface'; */
 
 
 //http:localhost:8000/api/katas/
-katasRouter.route('/')
+/* katasRouter.route('/') */
 //Get
-.get(jsonParser,verifyToken, async (req: Request, res: Response) => {
+/* .get(jsonParser,verifyToken, async (req: Request, res: Response) => {
 
     // Obtain query params (id)
     let id:any = req?.query?.id;
@@ -38,10 +38,10 @@ katasRouter.route('/')
     const response: any = await controller.getKatas(page, limit,id);
     // send to the client the response
     return res.status(200).send(response);
-})
+}) */
 
 //POST
-.post(jsonParser,verifyToken, async(req:Request, res: Response) =>{
+/* .post(jsonParser,verifyToken, async(req:Request, res: Response) =>{
 
      let { name, description, level, user, valoration, chances, } = req?.body;  
 
@@ -77,9 +77,9 @@ katasRouter.route('/')
   
 })
 
+ */
 
-
-.delete(verifyToken, async(req:Request, res:Response) => {
+/* .delete(verifyToken, async(req:Request, res:Response) => {
     // Obtain query params (id)
     let id:any = req?.query?.id;
     //dara un mensaje por consola
@@ -91,22 +91,16 @@ katasRouter.route('/')
     //send to the client the response
     return res.status(204).send(response);
 })
+ */
 
 
-
-.put(jsonParser,verifyToken,async(req: Request, res:Response) =>{
+/* .put(jsonParser,verifyToken,async(req: Request, res:Response) =>{
     //obtain query params (ID)
     let id:             any = req?.query?.id;
 
     let { name, description, level, user , valoration, chances} = req?.body;
 
-    /*let name:           any = req?.body;
-    let description:    any = req?.body;
-    let level:          any = req?.body;
-    let user:           any = req?.body;
-    let date:           any = Date.now();
-    let valoration:     any = req?.body;
-    let chances:        any = req?.body;    */
+  
     
     LogInfo(`Query param: ${id}, ${name}, ${description}, ${level}, ${user}, ${valoration}, ${chances}`);
 
@@ -128,13 +122,13 @@ katasRouter.route('/')
     const response: any = await controller.updateKata(id, kata);
     //send to the client the response
     return res.status(200).send(response);
-})
+}) */
 
 
-katasRouter.route('/level',) // de esta forma enviamos a mas niveles las consultas filtradas 
+/* katasRouter.route('/level',) // de esta forma enviamos a mas niveles las consultas filtradas 
 .get(jsonParser,verifyToken,async(req: Request, res:Response) =>{
     //obtain query params (level)
-    /* let level:any = req?.body; */
+    
     let { level } = req?.body
     //dara un mensaje por consola
     LogInfo(`Query param ${level}`);
@@ -147,8 +141,8 @@ katasRouter.route('/level',) // de esta forma enviamos a mas niveles las consult
   return res.status(200).send(response);
 
 })
-
-katasRouter.route('/r')
+ */
+/* katasRouter.route('/r')
 .get(jsonParser,verifyToken,async(req: Request, res:Response) =>{
     //Controller instance to execute method
   const controller: KatasController = new KatasController();
@@ -156,9 +150,9 @@ katasRouter.route('/r')
   const response:any = await controller.getKatasRecently();
   //send to the client the response
   return res.status(200).send(response);
-} )
+} ) */
 
-katasRouter.route('/valorations')
+/* katasRouter.route('/valorations')
 .get(jsonParser,verifyToken,async(req: Request, res: Response)=>
 {
     //controller instance to execute method
@@ -167,15 +161,12 @@ katasRouter.route('/valorations')
     const response: any = await controller.getKatasValorated();
     //send to the client the respnse
     return res.status(200).send(response);
-} )
+} ) */
 
 
-.put(jsonParser,verifyToken,async (req: Request, res: Response) => {
+/* .put(jsonParser,verifyToken,async (req: Request, res: Response) => {
     //let id: any = req.query.id;
-    /* let name: any = req?.body;    
-    let userID : any = req?.body;
-    let vote: any= req?.body; */
-
+    
     let { name, userID, vote} = req?.body;
 
     LogInfo(`Query Param: ${name}, ${vote}`);
@@ -187,9 +178,9 @@ katasRouter.route('/valorations')
 
     return res.status(200).send(response);
 
-})
+}) */
 
-katasRouter.route('/chances')
+/* katasRouter.route('/chances')
 .get(jsonParser, verifyToken,async(req: Request, res: Response)=>
 {
     //controller instance to execute method
@@ -199,10 +190,10 @@ katasRouter.route('/chances')
     //send to the client the respnse
     return res.status(200).send(response);
 } )
-
+ */
 
 
 
 
 //export Katas Router
-export default katasRouter;
+/* export default katasRouter; */

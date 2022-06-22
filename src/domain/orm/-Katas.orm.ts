@@ -1,4 +1,4 @@
-import { katasEntity } from "../entities/Katas.entity";
+/* import { katasEntity } from "../entities/Katas.entity";
 import { LogSuccess, LogError } from "../../utils/logger";
 import { response } from "express";
 import { IKatas } from "../interfaces/IKatas.interface";
@@ -7,7 +7,7 @@ import { IKatas } from "../interfaces/IKatas.interface";
 /**
  * Method to obtain al katas from Collection "Katas" in Mongo server
  */
-export const getAllKatas= async (page: number, limit:number): Promise<any[] | undefined> => {
+/* export const getAllKatas= async (page: number, limit:number): Promise<any[] | undefined> => {
     try {
         let katasModel = katasEntity();
 
@@ -38,10 +38,10 @@ export const getAllKatas= async (page: number, limit:number): Promise<any[] | un
         LogError (`[ORM ERROR]: Getting all Katas: ${error}`);
     }
 }
-
+ */
 // - GET Katas By ID
 
-export const getKatasByID = async ( id : string): Promise<any | undefined > => {
+/* export const getKatasByID = async ( id : string): Promise<any | undefined > => {
     try {
         let katasModel = katasEntity();
 
@@ -50,10 +50,10 @@ export const getKatasByID = async ( id : string): Promise<any | undefined > => {
     }catch(error){
         LogError ( `[ORM ERROR]: Getting katas By ID: ${error}`);
     }
-}
+} */
 
 // - Delete Kata By ID
-export const deleteKataByID = async (id:string ): Promise<any | undefined> =>{
+/* export const deleteKataByID = async (id:string ): Promise<any | undefined> =>{
     try {
         let katasModel = katasEntity();
 
@@ -62,10 +62,10 @@ export const deleteKataByID = async (id:string ): Promise<any | undefined> =>{
     } catch (error) {
         LogError(`[ORM ERROR]: Deleting Kata By ID: ${error}`);
     }    
-}
+} */
 
 // - Create New Kata
-export const createKata = async(katas: any): Promise <any | undefined> =>{
+/* export const createKata = async(katas: any): Promise <any | undefined> =>{
     try {
         let katasModel = katasEntity();
 
@@ -74,11 +74,11 @@ export const createKata = async(katas: any): Promise <any | undefined> =>{
     } catch (error) {
         LogError(`[ORM ERROR]: Creating kata: ${error}`);
     }
-}
+} */
 
 
 // - Update Kata By ID
-export const updateKataByID = async(id:string, katas: any): Promise <any | undefined> =>{
+/* export const updateKataByID = async(id:string, katas: any): Promise <any | undefined> =>{
     try {
         let katasModel = katasEntity();
 
@@ -88,9 +88,9 @@ export const updateKataByID = async(id:string, katas: any): Promise <any | undef
         LogError(`[ORM ERROR]: Updating Kata: ${error}`);
     }
 }
-
+ */
 // -Get Katas By Level
-export const getKatasByLevel = async (level: Number): Promise<any | undefined> =>{
+/* export const getKatasByLevel = async (level: Number): Promise<any | undefined> =>{
     try {
         let katasModel = katasEntity();
 
@@ -100,10 +100,10 @@ export const getKatasByLevel = async (level: Number): Promise<any | undefined> =
         LogError(`[ORM ERROR]: Getting Katas By difficult Level: ${error}` )
     }
 
-}
+} */
 
 // - Get Katas Most Recently
-export const getKatasMostRecently = async (): Promise<any[] | undefined> =>
+/* export const getKatasMostRecently = async (): Promise<any[] | undefined> =>
 {   
     try 
     {
@@ -115,10 +115,10 @@ export const getKatasMostRecently = async (): Promise<any[] | undefined> =>
         LogError(`[ORM ERROR]: Getting 5 katas most recently: ${error}`)
     }
     
-}
+} */
 
 // - Get kata by Valoration
-export const getKatasByValoration = async (): Promise<any[] | undefined> =>
+/* export const getKatasByValoration = async (): Promise<any[] | undefined> =>
 {
     try 
     {
@@ -129,10 +129,10 @@ export const getKatasByValoration = async (): Promise<any[] | undefined> =>
     }catch(error){
         LogError(`[ORM ERROR]: Getting katas sort by valorations: ${error}`)
     }
-}
+} */
 
 // - update kata by valoration and get media of many valorations
-export const updateKatasByValoration = async (name: string ,vote: any, userID: any):Promise<any | undefined> => 
+/* export const updateKatasByValoration = async (name: string ,vote: any, userID: any):Promise<any | undefined> => 
 {
     try 
     {
@@ -163,9 +163,9 @@ export const updateKatasByValoration = async (name: string ,vote: any, userID: a
         LogError (`[ORM ERROR]: Updating Valoration of Kata: ${error}`);
     }
 }
-
+ */
 // - Get katas by tries o chances maked 
-export const getKatasByTries = async (): Promise<any[] | undefined> =>
+/* export const getKatasByTries = async (): Promise<any[] | undefined> =>
 {
     try 
     {
@@ -176,7 +176,7 @@ export const getKatasByTries = async (): Promise<any[] | undefined> =>
     }catch(error){
         LogError(`[ORM ERROR]: Getting katas sort by tries: ${error}`)
     }
-}
+} */
 
 //TODO
-// - GETs
+// - GETs */

@@ -35,7 +35,8 @@ authRouter.route('/register')
         name : name,
         email : email, 
         password: hashedPassword,
-        age :age 
+        age :age ,
+        katas: []
       }
 
       //Controller Instance to execute method

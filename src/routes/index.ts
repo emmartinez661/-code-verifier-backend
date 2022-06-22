@@ -8,7 +8,7 @@ import helloRouter from './HelloRouter';
 import goodbyeRouter from './GoodByeRouter';
 import { LogInfo } from '../utils/logger';
 import usersRouter from './UserRouter';
-import katasRouter from './KatasRouter'
+import katasRouter from './KataRouter'
 import authRouter from './AuthRouter'
 
 // Server Instance
