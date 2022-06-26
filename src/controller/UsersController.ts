@@ -5,11 +5,14 @@ import { LogSuccess, LogError, LogWarning } from "../utils/logger";
 // ORM - Users Collection
 import { deleteUserByID, getAllUsers , getUserByID, createUser, updateUserByID, getKatasFromUser} from "../domain/orm/User.orm";
 import { BasicResponse } from "./types";
+import { IKata } from "@/domain/interfaces/IKata.interface";
+import { createKata } from "@/domain/orm/kata.orm";
 
 @Route("/api/users")
 @Tags("UserController")
 export class UserController implements IUserController{
-
+    
+   
    
     
     /**
@@ -72,7 +75,7 @@ export class UserController implements IUserController{
      * @returns 
      */
     @Put("/")
-    public async updateUSer(@Query()id: string, user: any): Promise<any> {
+    public async updateUSer(@Query()id: string,@Query()user: any): Promise<any> {
         let response: any = '';
 
         if(id){ //si recibe el query param por ID muestralo
@@ -113,6 +116,7 @@ export class UserController implements IUserController{
         
     }
 
+    
     
    
 }

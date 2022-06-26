@@ -1,5 +1,6 @@
 //import { IKatas } from '../../domain/interfaces/IKatas.interface';
-import { IKata } from '../../domain/interfaces/IKata.interface';
+
+import { IKata, KataLevel } from '../../domain/interfaces/IKata.interface';
 import { IUser } from '../../domain/interfaces/IUser.interface';
 import { BasicResponse, GoodByeResponse } from '../types';
 
@@ -15,7 +16,7 @@ export interface IUserController{
     //Read all users from database || get User By ID
     getUsers(page: number, limit: number, id?:string): Promise<any>
     //Get Katas of User
-    getKatas(page: number, limit: number, id?:string):Promise<any>
+    getKatas(page: number, limit: number, id?:string):Promise<any>    
     //Delete User By ID
     deleteUser(id:string):Promise<any>   
     //Update User
@@ -54,10 +55,18 @@ export interface IAuthController {
 export interface IKataController{
     //Read all katas from database || get Kata By ID
     getKatas(page: number, limit: number, id?:string): Promise<any>
-    //Create new Kata
+    //Get Katas By level
+    filterKatasByLevel(level?:KataLevel): Promise<any>
+    //Get Katas by Stars (Valoration)
+    getKatasByStars(stars?:number):Promise<any>
+    //Create new Kata    
     createKata(kata: IKata): Promise <any>
     //Delete Kata By ID
-    deleteKata(id:string):Promise<any>   
+    deleteKata(id:string, userID: any):Promise<any>   
     //Update Kata
-    updateKata(id:string, kata:IKata):Promise<any>
+    updateKata(id:string, kata:IKata,userID:any):Promise<any>
+    //Update Valorations of kata 
+    updateKatasValoration(id: string, vote: any, userID: any): Promise<any>
+    //solve kata by ID
+    solutionKata(id:string , solution: any , userID: any):Promise<any>
 }

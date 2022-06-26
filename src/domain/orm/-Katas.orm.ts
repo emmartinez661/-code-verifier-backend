@@ -150,8 +150,7 @@ import { IKatas } from "../interfaces/IKatas.interface";
                     { "filter" :     { name : name},        
                        "update" :[  { $set :{ "valoration" :{ $avg : "$numValorations.valoration_item" }}}]}},
                        
-                    
-                    ])
+                ])
                 
             } else {
                 response.message = 'you cannot update this kata'

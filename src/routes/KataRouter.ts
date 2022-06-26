@@ -38,6 +38,8 @@ katasRouter.route('/')
     return res.status(200).send(response);
   })
 
+  
+
   .delete(verifyToken, async(req:Request, res: Response) =>{
     //   Obtain Query Params (ID)
     let id: any = req?.query?.id;  
@@ -55,7 +57,8 @@ katasRouter.route('/')
 
   .put(jsonParser,verifyToken,async(req:Request, res: Response) => {
       //   Obtain Query Params (ID)
-      let id:     any = req?.query?.id; 
+      let id:     any = req?.query.id; 
+      let userID: any = req?.query.userID;
       
       let name:         string   = req?.body?.name; //campo obligatorio x 
       let description:  string   = req?.body?.description || '';
@@ -64,9 +67,9 @@ katasRouter.route('/')
       let stars:        number   = req?.body?.stars || 0;
       let creator:      string   = req?.body?.creator; //al no poner opcion or este campo sera obligatorio
       let solution:     string   = req?.body?.solution|| '';
-      let participants: string []  = req?.body?.participants || [];
+      //let participants: string []  = req?.body?.participants || [];
         
-      if(name && description && level && intents >=0 && stars >=0 && creator && solution && participants.length >=0){
+      if(name && description && level &&   solution && userID){
 
         //  Controller instance to execute method
      const controller: KatasController = new KatasController();
@@ -78,11 +81,14 @@ katasRouter.route('/')
         intents: intents,
         stars: stars,
         creator: creator,
-        solution: solution,
-        participants: participants
+        solution: { 
+          solution: solution,
+          uSolutions:[]
+         },
+        participants: { uv :[]}
     }
       //  obtain response
-      const response: any = await controller.updateKata(id, kata);
+      const response: any = await controller.updateKata(id, kata, userID);
       //  send to the client the response
      return res.status(200).send(response);
       }else {
@@ -100,25 +106,28 @@ katasRouter.route('/')
       let level:        KataLevel  = req?.body?.level ||  KataLevel.BASIC;
       let intents:      number     = req?.body?.intents || 0;
       let stars:        number     = req?.body?.stars || 0;
-      let creator:      string     = req?.body?.creator; //al no poner opcion or este campo sera obligatorio
+      let creator:      any     = req.query?.id; //al no poner opcion or este campo sera obligatorio
       let solution:     string     = req?.body?.solution|| 'default solution';
-      let participants: string []  = req?.body?.participants || [];
+      //let participants: string []  = req?.body?.participants || [];
         
-      if(name && description && level && intents >=0 && stars >=0 && creator && solution && participants.length >=0){
+      if(name && description && level && intents >=0 && stars >=0 && creator && solution ){
 
         //  Controller instance to execute method
      const controller: KatasController = new KatasController();
 
      //datos de prueba
-     let kata:IKata ={
+     let kata: IKata ={
         name: name,
         description: description,
         level: level,
         intents: intents,
         stars: stars,
         creator: creator,
-        solution: solution,
-        participants: participants
+        solution: { 
+          solution: solution,
+          uSolutions:[]
+         },
+         participants: { uv :[] }
 
     }
 
@@ -128,11 +137,81 @@ katasRouter.route('/')
      return res.status(200).send(response);
     }else {
         return res.status(400).send({
-            message: '[ERROR] Updating kata You need to sen all attrs of kata to update it'
+            message: '[ERROR] Creating kata You need to sen all attrs of kata to create it'
         });
     }
 
   })
+
+
+  katasRouter.route('/level') // de esta forma enviamos a mas niveles las consultas filtradas 
+.get(jsonParser,verifyToken,async(req: Request, res:Response) =>{
+    //obtain query params (level)
+    
+    let level: KataLevel = req?.body?.level
+    //dara un mensaje por consola
+    LogInfo(`Query param ${level}`);
+
+    //Controller instance to execute method
+  const controller: KatasController = new KatasController();
+  //obtain response 
+  const response: any = await controller.filterKatasByLevel(level);
+  // send to the client the response
+  return res.status(200).send(response);
+
+})
+
+katasRouter.route('/stars') // de esta forma enviamos a mas niveles las consultas filtradas 
+.get(jsonParser,verifyToken,async(req: Request, res:Response) =>{
+    //obtain query params (stars)
+    
+    let stars: number = req?.body?.stars
+    //dara un mensaje por consola
+    LogInfo(`Query param ${stars}`);
+
+    //Controller instance to execute method
+  const controller: KatasController = new KatasController();
+  //obtain response 
+  const response: any = await controller.getKatasByStars(stars);
+  // send to the client the response
+  return res.status(200).send(response);
+
+})
+
+.put(jsonParser,verifyToken, async(req: Request, res: Response) =>{
+  let id: any = req?.query.id;
+  let vote: any = req?.body.vote;
+  let userID: any = req?.body?.userID;
+
+  
+
+
+    LogInfo(`Query Param: ${id}, ${vote}`);
+  const controller: KatasController = new KatasController();
+
+  const response: any = await controller.updateKatasValoration(id, vote, userID);
+
+  return res.status(200).send(response);
+      
+  }  
+)
+
+katasRouter.route('/solution')
+//solve kata by id
+.put(jsonParser, verifyToken, async( req: Request, res: Response)=> {
+  let id: any = req?.query.id;
+  let solution : any = req?.body.solution;
+  let userID :any = req?.body.userID;
+
+  LogInfo(`Query param: ${id}, ${solution}`);
+const controller: KatasController = new KatasController();
+
+const response: any = await controller.solutionKata(id, solution, userID)
+
+  return res.status(200).send(response);
+})
+
+
 // Export Hello Router
 export default katasRouter;
 

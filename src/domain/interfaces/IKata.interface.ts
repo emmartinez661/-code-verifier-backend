@@ -4,6 +4,16 @@ export enum KataLevel  {
     HIGH= 'High'        //2
 }
 
+export interface UsersVote{
+    user_id: string,
+    stars: number
+}
+
+export interface UserSolution{
+    user_id: string,
+    solution: string
+}
+
 export interface IKata {
 
     name:string,
@@ -12,6 +22,11 @@ export interface IKata {
     intents: number, 
     stars: number,
     creator: string, //id of user
-    solution: string
-    participants: string[],
+    solution: {
+        solution: string,
+        uSolutions: UserSolution[]
+    },
+     participants: {
+        uv: UsersVote[]
+    }
 }

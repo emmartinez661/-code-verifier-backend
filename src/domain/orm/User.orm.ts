@@ -17,6 +17,7 @@ import { tokenToString } from "typescript";
 import { UserResponse } from "../types/UsersResponse.type";
 
 import mongoose from "mongoose";
+import { response } from "express";
 
 //Configuration of environment variables
 dotenv. config();
@@ -251,5 +252,7 @@ export const logoutUser = async ():Promise <any | undefined> =>{
            LogError (`[ORM ERROR]: Getting all Users: ${error}`);
        }
    }
+
+   
 
 
